@@ -19,17 +19,41 @@ def listBooks():
                 exit()
                 break
 
+def addNewBook(): 
+    while True:
+        print("-- Adding new book --")
+        new_title = questionary.text("Enter a book title").ask()
+
+        if not new_title:
+            print("⚠️ The book title is required")
+        
+        new_synopsis = questionary.text("Enter a book synopsis").ask()
+
+        if not new_synopsis:
+            print("⚠️ The book synopsis is required")
+        
+        print(f"✅ '{new_title}' book added successfully")
+        break
+
 def main():
     option_menu = {
-        "list the books": listBooks,
+        "List the books": listBooks,
+        "Add new book": addNewBook,
         "-- Exit --": exit,
     }
 
-    option = questionary.select("Personal Library", choices=list(option_menu.keys())).ask()
+    while True:
+        option = questionary.select("Personal Library", choices=list(option_menu.keys())).ask()
 
-    if option in option_menu:
-        option_selected = option_menu[option]
-        option_selected()
+        if option in option_menu:
+            option_selected = option_menu[option]
+            if option == '-- Exit --':
+                option_selected()
+                break
+            else:
+                option_selected()
+
+            
 
 
 
