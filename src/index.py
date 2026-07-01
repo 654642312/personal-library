@@ -7,6 +7,15 @@ class Book:
         self.title = title
         self.synopsis = synopsis
 
+def deleteBook():
+    books = [Book(1, "1984", "synopsis"), Book(2, "Cien años de soledad", "synopsis"), Book(3, "Dune", "synopsis"), Book(4, "Fahrenheit 451", "synopsis")]
+
+    while True:
+
+        if len(books) == 0:
+            print("🧹 There are no books to delete")
+        
+
 def exit():
     print("👋 Leaving...")
 
@@ -24,6 +33,22 @@ def listBooks():
             if book_selected == "-- Exit --" or book_selected is None:
                 exit()
                 break
+            else:
+                while True:
+                    action = questionary.select(f"Book '{book_selected}' What do you want to do?", choices=["Delete book 🧹", "-- Back to the list --"]).ask()
+                    
+                    if action == "-- Back to the list --" or action is None:
+                        exit()
+                        break
+
+                    match action:
+                        case "Delete book 🧹":
+                            confirm = questionary.confirm(f"🧹 Are you sure you want to sweep away '{book_selected}'?").ask()
+                            if confirm:
+                                print(f"🧹 '{book_selected}' has been successfully deleted!")
+                            else:
+                                print("🚫 Deletion cancelled.")
+
 
 def addNewBook():
     while True:
