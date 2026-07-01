@@ -1,17 +1,23 @@
 
 import questionary
 
+class Book:
+    def __init__(self, id, title, synopsis):
+        self.id = id
+        self.title = title
+        self.synopsis = synopsis
+
 def exit():
     print("👋 Leaving...")
 
 def listBooks(): 
-    books = ["1984", "Cien años de soledad", "Dune", "Fahrenheit 451"]
+    books = [Book(1, "1984", "synopsis"), Book(2, "Cien años de soledad", "synopsis"), Book(3, "Dune", "synopsis"), Book(4, "Fahrenheit 451", "synopsis")]
 
     while True:
-        if not books:
+        if len(books) == 0:
             print("no books")
         else:
-            options = books + ["-- Exit --"]
+            options = [book.title for book in books] + ["-- Exit --"]
 
             book_selected = questionary.select("Select a book", choices=options).ask()
 
