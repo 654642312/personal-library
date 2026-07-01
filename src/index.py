@@ -19,15 +19,23 @@ def listBooks():
                 exit()
                 break
 
-def addNewBook(): 
+def addNewBook():
     while True:
         print("-- Adding new book --")
         new_title = questionary.text("Enter a book title").ask()
+
+        if new_title is None:
+            exit()
+            return
 
         if not new_title:
             print("⚠️ The book title is required")
         
         new_synopsis = questionary.text("Enter a book synopsis").ask()
+
+        if new_synopsis is None:
+            exit()
+            return
 
         if not new_synopsis:
             print("⚠️ The book synopsis is required")
@@ -44,6 +52,10 @@ def main():
 
     while True:
         option = questionary.select("Personal Library", choices=list(option_menu.keys())).ask()
+
+        if option is None:
+            exit()
+            break
 
         if option in option_menu:
             option_selected = option_menu[option]
